@@ -1,0 +1,62 @@
+<LinearLayout
+    android:id="@+id/own_word_record"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="5dp">
+
+
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/word_record_number"
+        android:background="@color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:text="1."/>
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/word_record_name"
+        android:background="@color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:text="ExampleWord"/>
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:background="@color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:text="@string/create_own_word_record_casualties"/>
+
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/word_record_casualties"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:text="12"/>
+
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/word_record_delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/cancel_icon"/>
+
+
+
+</LinearLayout>

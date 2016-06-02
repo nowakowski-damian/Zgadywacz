@@ -1,0 +1,147 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    >
+
+    <include  layout="@layout/my_action_bar"
+        />
+
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/concentrator_shape_lower_padding"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:onClick="onGuess"
+
+                >
+
+                <ImageView
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/guess"
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    />
+
+                <TextView
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:text="@string/play_guess_button"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.01"
+                    />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/concentrator_shape_lower_padding"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+
+                android:onClick="onCreateWord"
+                >
+
+                <ImageView
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/create"
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    />
+
+                <TextView
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:text="@string/play_create_button"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.01"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/concentrator_shape_lower_padding"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+
+                android:onClick="onUpgrade"
+                >
+
+                <ImageView
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/upgrade"
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    />
+
+                <TextView
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:text="@string/play_upgrade_button"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight=".01"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

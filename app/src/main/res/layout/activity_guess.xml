@@ -1,0 +1,202 @@
+<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/guess_switcher"
+    >
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/guess_whole_view"
+    >
+
+<include layout="@layout/my_action_bar"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:id="@+id/guess_action_bar"/>
+
+
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/guess_action_bar"
+
+        android:id="@+id/guess_main_field"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/guess_word_field_lin_layout">
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/start_guessing_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/guess_start_button"
+                android:padding="20dp"
+                android:textSize="30sp"
+                android:layout_marginBottom="60dp"
+                android:textColor="@color/button_center"
+                android:onClick="onStartGuess"
+                 />
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/guess_settings_bar"
+            android:orientation="horizontal"
+            android:background="@color/actionBarBack"
+            >
+
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/meter"/>
+
+            <TextView
+                android:background="@color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textSize="30sp"
+                android:layout_gravity="center"
+                android:id="@+id/guess_wlength_textview" />
+            <ImageView
+                android:layout_marginLeft="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/win"/>
+
+            <TextView
+                android:background="@color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+20$"
+                android:textSize="30sp"
+                android:layout_gravity="center"
+                android:id="@+id/guess_victory_textview" />
+
+            <ImageView
+                android:layout_marginLeft="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/loss"/>
+
+            <TextView
+                android:background="@color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-10$"
+                android:textSize="30sp"
+                android:layout_gravity="center"
+                android:id="@+id/guess_loss_textview" />
+
+
+
+
+            <TextView
+                android:layout_marginLeft="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:textSize="30sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/bottombar_guess_settings"
+                android:onClick="onSettings"
+                android:layout_weight="1"
+                />
+
+
+        </LinearLayout>
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+
+</RelativeLayout>
+
+<!-- next view-->
+
+<RelativeLayout
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_margin="10dp"
+    >
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:background="@drawable/concentrator_shape_lower_padding">
+
+    <ProgressBar
+        android:layout_marginTop="25dp"
+        style="?android:attr/progressBarStyleLarge"
+        android:background="#00ffffff"
+        android:indeterminate="true"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="#76FF03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        />
+
+    <TextView
+        android:layout_marginBottom="20dp"
+        style="@style/myFont"
+        android:background="@color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/guess_loading_text"
+        android:layout_gravity="center"
+        />
+
+
+</LinearLayout>
+
+
+
+
+</RelativeLayout>
+
+
+</ViewSwitcher>

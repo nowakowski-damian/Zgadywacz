@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTheme"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.thirteendollars.guesser.app.Credits"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/credits_header_tittle"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:id="@+id/credits_tittle" />
+
+    <LinearLayout
+        android:layout_below="@id/credits_tittle"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:id="@+id/LineearLayoutCredits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/concentrator_shape_lower_padding">
+
+
+        <ScrollView
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="17dp"
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView"
+            android:background="#00FFFFFF">
+
+            <TextView
+
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="aa"
+                android:id="@+id/credits_textview"
+                android:background="#00FFFFFF"/>
+        </ScrollView>
+    </LinearLayout>
+
+
+</RelativeLayout>

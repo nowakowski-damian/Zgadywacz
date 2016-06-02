@@ -1,0 +1,96 @@
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <include layout="@layout/mainmenu_actionbar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/guesser_title"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/linearLayout"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/guesser_title"
+            android:layout_margin="10dp"
+            android:layout_above="@+id/linearLayout"
+            android:layout_centerHorizontal="true" />
+
+
+    <LinearLayout
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/concentrator_shape_lower_padding"
+        android:id="@+id/linearLayout">
+
+    <Button
+        android:layout_weight="1"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="10dp"
+        style="@style/myButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/menu_play_button"
+        android:id="@+id/menu_play_button"
+        android:onClick="onPlay"/>
+
+    <Button
+        android:layout_weight="1"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="10dp"
+        style="@style/myButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/menu_ranking_button"
+        android:id="@+id/menu_ranking_button"
+        android:onClick="onRanking"/>
+    <Button
+        android:layout_weight="1"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="10dp"
+        style="@style/myButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/menu_rateme_button"
+        android:id="@+id/menu_rateme_button"
+        android:onClick="onRateMe"/>
+    <Button
+        android:layout_weight="1"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="30dp"
+        style="@style/myButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/menu_credits_button"
+        android:id="@+id/menu_credits_button"
+        android:onClick="onCredits"/>
+
+</LinearLayout>
+</RelativeLayout>
+
+</LinearLayout>

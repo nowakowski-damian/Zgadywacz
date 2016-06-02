@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.thirteendollars.guesser" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".app.InitializeOnceOnStart"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".app.LoginActivity"
+            android:label="@string/app_first_activity_name"
+            android:screenOrientation="portrait"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".app.SignupActivity"
+            android:label="@string/signup_actionbar_title"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <activity
+            android:name=".app.MainMenu"
+            android:label="@string/menu_username">
+        </activity>
+        <activity
+            android:name=".app.Ranking"
+            android:label="ranking_actionbar_title">
+        </activity>
+
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="YOUR_APP_ID" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="YOUR_CLIENT_KEY" />
+
+        <activity
+            android:name=".app.Credits"
+            android:label="@string/title_activity_credits"
+            >
+        </activity>
+        <activity
+            android:name=".app.PlayActivity"
+            android:label="@string/title_activity_play"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".app.GuessActivity"
+            android:label="@string/title_activity_guess"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".app.UpgradeActivity"
+            android:label="@string/title_activity_upgrade"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".app.CreateActivity"
+            android:label="@string/title_activity_create"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".app.AddWordActivity"
+            android:label="@string/title_activity_add_word"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".app.ResetPassword"
+            android:label="@string/title_activity_reset_password" >
+        </activity>
+    </application>
+
+</manifest>

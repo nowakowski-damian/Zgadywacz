@@ -1,0 +1,104 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <include layout="@layout/mainmenu_actionbar"
+        android:id="@+id/mainmenu_actionbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="@color/transparent"
+            android:layout_centerInParent="true"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:background="@drawable/concentrator_shape_lower_padding">
+
+                <Button
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="10dp"
+                    style="@style/myButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="@string/menu_play_button"
+                    android:id="@+id/menu_play_button"
+                    android:onClick="onPlay"/>
+
+                <Button
+                    android:layout_weight="1"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="10dp"
+                    style="@style/myButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="@string/menu_ranking_button"
+                    android:id="@+id/menu_ranking_button"
+                    android:onClick="onRanking"/>
+                <Button
+                    android:layout_weight="1"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="10dp"
+                    style="@style/myButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="@string/menu_rateme_button"
+                    android:id="@+id/menu_rateme_button"
+                    android:onClick="onRateMe"/>
+                <Button
+                    android:layout_weight="1"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="20dp"
+                    style="@style/myButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="@string/menu_credits_button"
+                    android:id="@+id/menu_credits_button"
+                    android:onClick="onCredits"/>
+
+            </LinearLayout>
+
+
+
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                />
+
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
