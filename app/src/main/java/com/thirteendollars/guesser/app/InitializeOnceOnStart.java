@@ -7,9 +7,11 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.thirteendollars.guesser.other.MediaManager;
 import com.thirteendollars.guesser.wordslibrary.DateBaseCopyingManager;
 
+import io.fabric.sdk.android.Fabric;
 import java.io.IOException;
 
 /**
@@ -26,6 +28,7 @@ public class InitializeOnceOnStart extends Application {
         AppStaticData.spEditor=AppStaticData.sp.edit();
         AppStaticData.loadMusicSettings();
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
 
         //INITILIZE MUSIC
         if( !MediaManager.isInitialized() ) MediaManager.initialize(getApplicationContext());

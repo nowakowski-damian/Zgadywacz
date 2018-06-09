@@ -39,6 +39,9 @@
             android:label="@string/title_activity_upgrade"
             android:screenOrientation="landscape" >
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="b8258e9b86982cdb8e5c3bc56e62d0ba55b141be" />
     </application>
 
 </manifest>
