@@ -1,6 +1,7 @@
 package com.thirteendollars.guesser.app;
 
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -321,6 +322,7 @@ public class UpgradeActivity extends AppCompatActivity {
         if( triesManager.getTriesLevel() >= AppStaticData.MAX_TRIES_LEVEL ) Toast.makeText(getApplicationContext(), R.string.max_level_achieved_warning, Toast.LENGTH_SHORT).show();
         else{
             prepareTriesPopup();
+            fullScreenImmersive(popup.getContentView());
             popup.showAtLocation(wholeView, Gravity.NO_GRAVITY, 0, statusBarHeight);
         }
     }
@@ -330,6 +332,7 @@ public class UpgradeActivity extends AppCompatActivity {
         if( timeManager.getTimeLevel() >= AppStaticData.MAX_TIME_LEVEL ) Toast.makeText(getApplicationContext(), R.string.max_level_achieved_warning, Toast.LENGTH_SHORT).show();
         else{
             prepareTimePopup();
+            fullScreenImmersive(popup.getContentView());
             popup.showAtLocation(wholeView, Gravity.NO_GRAVITY, 0, statusBarHeight);
         }
     }
@@ -338,6 +341,7 @@ public class UpgradeActivity extends AppCompatActivity {
         if( startLettersManager.getStartLettersLevel() >= AppStaticData.MAX_START_LETTERS_LEVEL ) Toast.makeText(getApplicationContext(), R.string.max_level_achieved_warning, Toast.LENGTH_SHORT).show();
         else{
             prepareStartLettersPopup();
+            fullScreenImmersive(popup.getContentView());
             popup.showAtLocation(wholeView, Gravity.NO_GRAVITY, 0, statusBarHeight);
         }
     }
@@ -346,6 +350,7 @@ public class UpgradeActivity extends AppCompatActivity {
         if( levelManager.getLevel() >= AppStaticData.MAX_GAME_LEVEL ) Toast.makeText(getApplicationContext(), R.string.max_level_achieved_warning, Toast.LENGTH_SHORT).show();
         else{
             prepareLevelPopup();
+            fullScreenImmersive(popup.getContentView());
             popup.showAtLocation(wholeView, Gravity.NO_GRAVITY, 0, statusBarHeight);
         }
     }
@@ -360,6 +365,18 @@ public class UpgradeActivity extends AppCompatActivity {
 
     private void showLevelMssg(){
         Toast.makeText(getApplicationContext(),getString(R.string.upgrade_game_level_too_low)+" "+levelManager.getLevel(),Toast.LENGTH_SHORT).show();
+    }
+
+    public void fullScreenImmersive(View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            view.setSystemUiVisibility(uiOptions);
+        }
     }
 
 

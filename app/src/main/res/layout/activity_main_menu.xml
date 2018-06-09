@@ -5,9 +5,7 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include layout="@layout/mainmenu_actionbar"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+    <include layout="@layout/mainmenu_actionbar" />
 
 
     <RelativeLayout
@@ -56,17 +54,6 @@
         android:id="@+id/menu_play_button"
         android:onClick="onPlay"/>
 
-    <Button
-        android:layout_weight="1"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginBottom="10dp"
-        style="@style/myButton"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="@string/menu_ranking_button"
-        android:id="@+id/menu_ranking_button"
-        android:onClick="onRanking"/>
     <Button
         android:layout_weight="1"
         android:layout_marginLeft="3dp"

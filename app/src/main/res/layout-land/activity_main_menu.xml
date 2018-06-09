@@ -53,17 +53,6 @@
                     style="@style/myButton"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:text="@string/menu_ranking_button"
-                    android:id="@+id/menu_ranking_button"
-                    android:onClick="onRanking"/>
-                <Button
-                    android:layout_weight="1"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="3dp"
-                    android:layout_marginBottom="10dp"
-                    style="@style/myButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
                     android:text="@string/menu_rateme_button"
                     android:id="@+id/menu_rateme_button"
                     android:onClick="onRateMe"/>

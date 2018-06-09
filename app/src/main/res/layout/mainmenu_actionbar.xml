@@ -1,59 +1,18 @@
-<LinearLayout android:id="@+id/mainMenuActionBar"
+<RelativeLayout android:id="@+id/mainMenuActionBar"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="horizontal"
     android:background="@color/actionBarBack"
     android:padding="5dp">
 
     <ImageView
         android:background="@color/transparent"
         android:id="@+id/actionbar_music_icon"
-        android:layout_marginRight="15dp"
-        android:layout_gravity="center"
+        android:layout_alignParentEnd="true"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:onClick="changeMusicSettings"/>
 
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:background="@drawable/user_img"/>
-
-
-
-    <TextView
-        android:layout_weight="1"
-        android:id="@+id/mainmenu_actionbar_username_text"
-        android:background="@color/transparent"
-        android:textColor="@color/button_center"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:padding="5dp"
-        android:text="User Name"
-        android:onClick="onRanking"/>
-
-
-
-    <TextView
-        android:textStyle="bold"
-        android:id="@+id/mainmenu_actionbar_logout_text"
-        android:background="@color/transparent"
-        android:textColor="@color/button_center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:padding="5dp"
-        android:text="@string/mainmenu_actionbar_logout_text"
-        android:onClick="onLogout"/>
-
-
-
-
-
-
-</LinearLayout>
+</RelativeLayout>
 
 

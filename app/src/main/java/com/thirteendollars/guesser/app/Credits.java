@@ -19,18 +19,9 @@ public class Credits extends AppCompatActivity {
             " \n" +
             " \n" +
             "[ZGADUJ:]\n" +
-            "Do dyspozycji masz:\n" +
-            "-słowa z bazy aplikacji o długości od 3 do 20 liter\n" +
-            "-słowa od graczy o długości od 3 do 25 liter\n" +
-            " \n" +
-            "Słowa z bazy aplikacji:\n" +
+            "Do dyspozycji masz słowa z bazy aplikacji o długości od 3 do 20 liter.\n" +
             "*Za każdą poprawną literę zyskujesz 1 monetę\n" +
             "*W przypadku wygranej otrzymujesz dodatkowo jeszcze 2 monety za każdą literę oraz (długość_słowa-1)monet za każdą niewykorzystaną próbę zgadywania.\n" +
-            "*W przypadku przegranej nic nie tracisz\n" +
-            " \n" +
-            "Słowa od graczy:\n" +
-            "*Za każdą poprawną literę zyskujesz 10 monet\n" +
-            "**W przypadku wygranej otrzymujesz dodatkowo jeszcze (5*długość_słowa)monet za każdą literę oraz (długość_słowa-1)monet za każdą niewykorzystaną próbę zgadywania.\n" +
             "*W przypadku przegranej tracisz (długość_słowa)monet za każdą literę\n" +
             " \n" +
             "[ULEPSZAJ:]\n" +
@@ -38,24 +29,12 @@ public class Credits extends AppCompatActivity {
             "PRÓBY - zwiększyć ilość możliwych prób wpisywania liter\n" +
             "CZAS - zwiększyć dostępny czas na rozpracowanie słowa\n" +
             "LITERY-zwiększyć ilość liter które dostajesz na start\n" +
-            "POZIOM GRY - zwiększyć maksymalną długość słów jaką możesz zgadywać,\n" +
-            "zwiększyć maksymalną ilość słów które możesz stworzyć\n" +
-            " \n" +
-            "[TWÓRZ:]\n" +
-            "Jeżeli uzyskasz poziom gry 4,możesz zacząć dodawać własne słowa.\n" +
-            "Dodając własne słowa nic nie tracisz,a inni użytkownicy mogą je zgadywać.\n" +
-            "Postaraj się - za każdą przegraną gracza,spowodowaną Twoim słowie otrzymujesz premię 250 monet.\n" +
-            "Możesz je przelać na konto główne w każdej chwili i ulepszać szybciej.\n" +
-            " \n" +
-            "[WYGRYWAJ]\n" +
-            "Bądź pierwszy w rankingu!\n"+
-            "O miejscu decydują punkty procentowe -obliczane na podstawie poziomu gry,pokazują postęp gracza. \n" +
-            "Liczba pod wskaźnikiem procentowym,to ilość własnych słów gracza - przepis na wygraną?\n" +
+            "POZIOM GRY - zwiększyć maksymalną długość słów jaką możesz zgadywać\n" +
             " \n" +
             "----------------------------------\n" +
-            "Wszelkie uwagi,spostrzeżenia i krytykę można kierować bezpośrednio na maila podanego poniżej.\n" +
+            "Wszelkie uwagi,spostrzeżenia i porady można kierować bezpośrednio na maila podanego poniżej.\n" +
             "Powodzenia!\n\n" +
-            "Kontakt: thirteendollars.com@gmail.com\n"+
+            "Kontakt: contact@dnowakowski.com\n"+
             "\n" +
             "\n" +
             "\n" +

@@ -87,14 +87,12 @@ public class MediaManager {
 
     public static void playUpgrade(){
         if (AppStaticData.PLAY_MUSIC) {
-            MainMenu.player.pause();
             upgraded.seekTo(0);
             upgraded.start();
             upgraded.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     mp.seekTo(0);
-                    MainMenu.player.start();
                 }
             });
 

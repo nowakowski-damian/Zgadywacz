@@ -85,54 +85,7 @@
 
         </LinearLayout>
 
-
     <!-- next row -->
-
-
-        <LinearLayout
-            android:background="@color/transparent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                style="@style/settingsFont"
-                android:background="@color/transparent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="27sp"
-                android:text="@string/popup_settings_word_type"
-                android:layout_gravity="center"
-                android:layout_weight="0.6"/>
-
-            <TextView
-                style="@style/settingsFont"
-                android:background="@color/transparent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="27sp"
-                android:text="from users"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_weight="0.1"
-                android:id="@+id/settings_wtype_textview" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/settings_up_button"
-                android:rotation="90"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/settings_wtype_next" />
-
-
-        </LinearLayout>
-
-    <!-- next row -->
-
-
-
 
 
 </LinearLayout>

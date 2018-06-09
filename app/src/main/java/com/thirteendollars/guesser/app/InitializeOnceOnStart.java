@@ -7,7 +7,7 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.parse.Parse;
+import com.thirteendollars.guesser.other.MediaManager;
 import com.thirteendollars.guesser.wordslibrary.DateBaseCopyingManager;
 
 import java.io.IOException;
@@ -24,17 +24,11 @@ public class InitializeOnceOnStart extends Application {
         //SET UP SHARED PREFERENCES
         AppStaticData.sp=getSharedPreferences("SharedData", MODE_PRIVATE);
         AppStaticData.spEditor=AppStaticData.sp.edit();
-        AppStaticData.loadUserDataFromSP();
         AppStaticData.loadMusicSettings();
         super.onCreate();
 
-
-
-        //INITIALIZE PARSE SERVICE
-        Parse.initialize(this);
-
-
-
+        //INITILIZE MUSIC
+        if( !MediaManager.isInitialized() ) MediaManager.initialize(getApplicationContext());
 
         // LOAD SCREEN FEATURES
         WindowManager windowManager=(WindowManager)getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
@@ -61,19 +55,8 @@ public class InitializeOnceOnStart extends Application {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
 
-
-
-
             AppStaticData.spEditor.putBoolean("FIRST_APP_OPENING",false);
         }
-
-
-
-
-
-
-
-
 
     }
 

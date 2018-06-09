@@ -64,44 +64,6 @@
 
 
             <LinearLayout
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/concentrator_shape_lower_padding"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-
-                android:onClick="onCreateWord"
-                >
-
-                <ImageView
-                    android:layout_margin="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/create"
-                    android:adjustViewBounds="true"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    />
-
-                <TextView
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/transparent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="30sp"
-                    android:text="@string/play_create_button"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="0.01"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_width="0dp"
@@ -110,7 +72,6 @@
                 android:background="@drawable/concentrator_shape_lower_padding"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
-
                 android:onClick="onUpgrade"
                 >
 

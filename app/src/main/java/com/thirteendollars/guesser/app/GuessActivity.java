@@ -2,6 +2,7 @@ package com.thirteendollars.guesser.app;
 
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
-
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.thirteendollars.guesser.R;
 import com.thirteendollars.guesser.data.CashData;
 import com.thirteendollars.guesser.data.LevelData;
@@ -33,9 +29,6 @@ import com.thirteendollars.guesser.other.MediaManager;
 import com.thirteendollars.guesser.other.MyKeyboard;
 import com.thirteendollars.guesser.wordslibrary.AndroidWord;
 import com.thirteendollars.guesser.wordslibrary.DatabaseManager;
-import com.thirteendollars.guesser.wordslibrary.UserWord;
-
-import java.util.List;
 import java.util.Random;
 
 
@@ -54,9 +47,6 @@ public class GuessActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
     RelativeLayout mainField;
 
-
-
-    private String FROM_USERS_TXT;
     private String FROM_ANDROID_TXT;
 
     private TextView mainLengthTV,mainVictoryTV,mainLossTV;
@@ -64,7 +54,6 @@ public class GuessActivity extends AppCompatActivity {
     private ViewSwitcher switcher;
 
     private AndroidWord aWord;
-    private UserWord uWord;
     private int chosenFieldNum;
     LetterField[] letterFields;
 
@@ -75,7 +64,6 @@ public class GuessActivity extends AppCompatActivity {
     CountDownTimer timer=null;
 
     int wordLength;
-    int wordType;
 
     private int triesLeft;
     private int timeForGame;
@@ -109,11 +97,10 @@ public class GuessActivity extends AppCompatActivity {
             }
 
             aWord=null;
-            uWord=null;
             timer=null;
             triesLeft=0;
             blockPopupCancel=false;
-            statusBarHeight=getStatusBarHeight();
+            statusBarHeight=0;
 
 
             cashManager=new CashData();
@@ -126,7 +113,6 @@ public class GuessActivity extends AppCompatActivity {
             mainLossTV=(TextView)findViewById(R.id.guess_loss_textview);
             switcher=(ViewSwitcher)findViewById(R.id.guess_switcher);
 
-            FROM_USERS_TXT=getResources().getString(R.string.settings_from_users_wtype);
             FROM_ANDROID_TXT=getResources().getString(R.string.settings_from_android_wtype);
             inflater=getLayoutInflater();
             wholeView=(RelativeLayout)findViewById(R.id.guess_whole_view);
@@ -199,28 +185,27 @@ public class GuessActivity extends AppCompatActivity {
                            if(settingsPopup!=null && settingsPopup.isShowing()) settingsPopup.dismiss();
 
                             container=(ViewGroup)inflater.inflate(R.layout.settings_popup, null);
-                            settingsPopup=new PopupWindow(container, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT,true);
-                            settingsPopup.setFocusable(false);
+                            settingsPopup=new PopupWindow(container,
+                                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                                    false
+                            );
                             final ImageView wlengthDown=(ImageView) container.findViewById(R.id.settings_length_down);
                             final TextView wlengthText=(TextView) container.findViewById(R.id.settings_length_textviev);
                             final ImageView wlengthUp=(ImageView) container.findViewById(R.id.settings_length_up);
-                            final TextView wtypeText=(TextView) container.findViewById(R.id.settings_wtype_textview);
-                            final ImageView wtypeNext=(ImageView) container.findViewById(R.id.settings_wtype_next);
                             final TextView victoryTextView=(TextView) container.findViewById(R.id.settings_victory_textview);
                             final TextView lossTextView=(TextView) container.findViewById(R.id.settings_loss_textview);
 
                             //init variables
                             wordLength=AppStaticData.WORDS_LENGTH;
-                            wordType=AppStaticData.WORDS_TYPE;
 
                             int lettOnStart=startLettersMAnager.getLettersOnStartForActualLevel();
                             int maxTries=triesManager.getTriesPerLetterForActualLevel()*wordLength - (wordLength-lettOnStart)+1;
-                            int winCashTemp=CashData.countChange(wordLength, 0, maxTries, wordType);
-                            int lossCashTemp=CashData.countCashFromIncorrectLetters(wordLength-1,wordLength,wordType);
+                            int winCashTemp=CashData.countChange(wordLength, 0, maxTries);
+                            int lossCashTemp=CashData.countCashFromIncorrectLetters(wordLength-1,wordLength);
 
                             //Init text fields
                             wlengthText.setText(wordLength+"" );
-                            wtypeText.setText(wordType == AppStaticData.FROM_ANDROID ? FROM_ANDROID_TXT : FROM_USERS_TXT);
                             victoryTextView.setText(""+winCashTemp);
                             lossTextView.setText(""+lossCashTemp);
                             // Main text fields too
@@ -238,8 +223,8 @@ public class GuessActivity extends AppCompatActivity {
                                         wordLength--;
                                         int lettOnStart=startLettersMAnager.getLettersOnStartForActualLevel();
                                         int maxTries=triesManager.getTriesPerLetterForActualLevel()*wordLength - (wordLength-lettOnStart)+1;
-                                        int winCashTemp=CashData.countChange(wordLength, 0, maxTries, wordType);
-                                        int lossCashTemp=CashData.countCashFromIncorrectLetters(wordLength-1,wordLength,wordType);
+                                        int winCashTemp=CashData.countChange(wordLength, 0, maxTries);
+                                        int lossCashTemp=CashData.countCashFromIncorrectLetters(wordLength-1,wordLength);
                                         wlengthText.setText(Integer.toString(wordLength));
                                         victoryTextView.setText(""+winCashTemp);
                                         lossTextView.setText(""+lossCashTemp);
@@ -256,46 +241,19 @@ public class GuessActivity extends AppCompatActivity {
                                             Toast.makeText(getApplicationContext(), R.string.max_length_for_this_level,Toast.LENGTH_LONG).show();
                                             return;
                                         }
-                                        if(wordLength < ( (wordType == AppStaticData.FROM_ANDROID) ? AppStaticData.MAX_WORD_LENGHT_ADNROID : AppStaticData.MAX_WORD_LENGHT_USER)  ) {
+                                        if(wordLength < AppStaticData.MAX_WORD_LENGHT_ADNROID) {
 
                                             wordLength++;
                                             int lettOnStart=startLettersMAnager.getLettersOnStartForActualLevel();
                                             int maxTries=triesManager.getTriesPerLetterForActualLevel()*wordLength - (wordLength-lettOnStart)+1;
-                                            int winCashTemp=CashData.countChange(wordLength, 0, maxTries, wordType);
-                                            int lossCashTemp=CashData.countCashFromIncorrectLetters(wordLength-1,wordLength,wordType);
+                                            int winCashTemp=CashData.countChange(wordLength, 0, maxTries);
+                                            int lossCashTemp=CashData.countCashFromIncorrectLetters(wordLength-1,wordLength);
                                             wlengthText.setText(Integer.toString(wordLength));
                                             victoryTextView.setText(""+winCashTemp);
                                             lossTextView.setText(""+lossCashTemp);
                                         }
                                 }
                             });
-
-
-
-                            wtypeNext.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if (wordType == AppStaticData.FROM_ANDROID)
-                                        wordType = AppStaticData.FROM_USERS;
-                                    else wordType = AppStaticData.FROM_ANDROID;
-
-                                    if (wordType == AppStaticData.FROM_ANDROID && wordLength > 20) {
-                                        wordLength = 20;
-                                        wlengthText.setText(Integer.toString(wordLength));
-                                    }
-                                    int lettOnStart=startLettersMAnager.getLettersOnStartForActualLevel();
-                                    int maxTries=triesManager.getTriesPerLetterForActualLevel()*wordLength - (wordLength-lettOnStart)+1;
-                                    int winCashTemp=CashData.countChange(wordLength, 0, maxTries, wordType);
-                                    int lossCashTemp=CashData.countCashFromIncorrectLetters(wordLength-1,wordLength,wordType);
-                                    wtypeText.setText(wordType == AppStaticData.FROM_ANDROID ? FROM_ANDROID_TXT : FROM_USERS_TXT);
-                                    victoryTextView.setText(""+winCashTemp);
-                                    lossTextView.setText("" + lossCashTemp);
-
-
-                                }
-                            });
-
-
 
                             //   CANCEL / OK BUTTONS
 
@@ -305,13 +263,11 @@ public class GuessActivity extends AppCompatActivity {
                                 public void onClick(View v) {
 
                                         wordLength = AppStaticData.WORDS_LENGTH;
-                                        wordType = AppStaticData.WORDS_TYPE;
                                         int lettOnStart=startLettersMAnager.getLettersOnStartForActualLevel();
                                         int maxTries=triesManager.getTriesPerLetterForActualLevel()*wordLength - (wordLength-lettOnStart)+1;
-                                        int winCashTemp=CashData.countChange(wordLength, 0, maxTries, wordType);
-                                        int lossCashTemp=CashData.countCashFromIncorrectLetters(wordLength - 1, wordLength, wordType);
+                                        int winCashTemp=CashData.countChange(wordLength, 0, maxTries);
+                                        int lossCashTemp=CashData.countCashFromIncorrectLetters(wordLength - 1, wordLength);
                                         wlengthText.setText(Integer.toString(wordLength));
-                                        wtypeText.setText(wordType == AppStaticData.FROM_ANDROID ? FROM_ANDROID_TXT : FROM_USERS_TXT);
                                         victoryTextView.setText(""+winCashTemp);
                                         lossTextView.setText(""+lossCashTemp);
                                         settingsPopup.dismiss();
@@ -326,34 +282,26 @@ public class GuessActivity extends AppCompatActivity {
                                 public void onClick(View v){
 
                                         //No more words with this length
+                                        AppStaticData.WORDS_LENGTH = wordLength;
+                                        AppStaticData.saveSettingsToSP();
+                                        int lettOnStart=startLettersMAnager.getLettersOnStartForActualLevel();
+                                        int maxTries=triesManager.getTriesPerLetterForActualLevel()*wordLength - (wordLength-lettOnStart)+1;
+                                        int winCashTemp=CashData.countChange(wordLength, 0, maxTries);
+                                        int lossCashTemp=CashData.countCashFromIncorrectLetters(wordLength-1,wordLength);
+                                        mainLengthTV.setText(Integer.toString(wordLength));
+                                        mainVictoryTV.setText("+"+winCashTemp+"$");;
+                                        if(lossCashTemp<0)  mainLossTV.setText(lossCashTemp+"$");
+                                        else mainLossTV.setText("-"+lossCashTemp+"$");
+                                        settingsPopup.dismiss();
+                                        if(blockPopupCancel) {
+                                            onStartGuess(null);
+                                            blockPopupCancel=false;
+                                        }
 
-                                      //  if (((wordType == AppStaticData.FROM_ANDROID) ? getWordFromAndroidDB(wordLength) : getWordFromUser(wordLength)) == null)
-                                      //      Toast.makeText(getApplicationContext(), R.string.no_more_words_toast, Toast.LENGTH_LONG).show();
-                                    //    else {
-                                            AppStaticData.WORDS_LENGTH = wordLength;
-                                            AppStaticData.WORDS_TYPE = wordType;
-                                            AppStaticData.saveSettingsToSP();
-                                            int lettOnStart=startLettersMAnager.getLettersOnStartForActualLevel();
-                                            int maxTries=triesManager.getTriesPerLetterForActualLevel()*wordLength - (wordLength-lettOnStart)+1;
-                                            int winCashTemp=CashData.countChange(wordLength, 0, maxTries, wordType);
-                                            int lossCashTemp=CashData.countCashFromIncorrectLetters(wordLength-1,wordLength,wordType);
-                                            mainLengthTV.setText(Integer.toString(wordLength));
-                                            mainVictoryTV.setText("+"+winCashTemp+"$");;
-                                            if(lossCashTemp<0)  mainLossTV.setText(lossCashTemp+"$");
-                                            else mainLossTV.setText("-"+lossCashTemp+"$");
-                                            settingsPopup.dismiss();
-                                            if(blockPopupCancel) {
-                                                onStartGuess(null);
-                                                blockPopupCancel=false;
-                                            }
-
-                                      //     }
                                     }
                             });
 
-
-
-
+                        fullScreenImmersive(settingsPopup.getContentView());
 
     }
 
@@ -367,8 +315,11 @@ public class GuessActivity extends AppCompatActivity {
 
 
         container=(ViewGroup)inflater.inflate(R.layout.end_game_popup, null);
-        endGamePopup=new PopupWindow(container, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT,true);
-        endGamePopup.setFocusable(false);
+        endGamePopup=new PopupWindow(container,
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                false
+        );
 
         final TextView winOrLossText=(TextView) container.findViewById(R.id.end_popup_win_or_loss_textview);
         final TextView correctWordsText=(TextView) container.findViewById(R.id.end_popup_corect_words_textview);
@@ -397,18 +348,18 @@ public class GuessActivity extends AppCompatActivity {
         }
 
         correctWordsText.setText(Integer.toString(correct));
-        correctCashText.setText("+"+Integer.toString(CashData.countCashFromCorrectLetters(correct,AppStaticData.WORDS_TYPE)));
+        correctCashText.setText("+"+Integer.toString(CashData.countCashFromCorrectLetters(correct)));
 
         incorrectWordsText.setText(Integer.toString(incorrect));
-        if(AppStaticData.WORDS_TYPE==AppStaticData.FROM_USERS && incorrect>0)
-            incorrectCashText.setText(Integer.toString(CashData.countCashFromIncorrectLetters(incorrect,correct+incorrect,AppStaticData.WORDS_TYPE)));
+        if(incorrect>0)
+            incorrectCashText.setText(Integer.toString(CashData.countCashFromIncorrectLetters(incorrect,correct+incorrect)));
 
         if(incorrect==0) {
             triesBonusText.setText("+"+ CashData.countCashFromTriesBonus(triesLeft, correct + incorrect) );
-            winBonusCashText.setText("+" + Integer.toString(CashData.countCashFromWinBonus(correct + incorrect, AppStaticData.WORDS_TYPE)));
+            winBonusCashText.setText("+" + Integer.toString(CashData.countCashFromWinBonus(correct + incorrect)));
         }
 
-        int sum =CashData.countChange(correct,incorrect,triesLeft,AppStaticData.WORDS_TYPE);
+        int sum = CashData.countChange(correct,incorrect,triesLeft);
         if(sum>=0) sumCashText.setText("+"+Integer.toString(sum));
         else  sumCashText.setText(Integer.toString(sum));
 
@@ -437,12 +388,11 @@ public class GuessActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 endGamePopup.dismiss();
-                if(AppStaticData.PLAY_MUSIC) MainMenu.player.start();
                 finish();
 
             }
         });
-
+        fullScreenImmersive(endGamePopup.getContentView());
     }
 
     private void initializeAbortPopupWindow() {
@@ -450,8 +400,11 @@ public class GuessActivity extends AppCompatActivity {
         if(abortPopup!=null && abortPopup.isShowing()) abortPopup.dismiss();
 
         container=(ViewGroup)inflater.inflate(R.layout.confirm_exit_popup, null);
-        abortPopup=new PopupWindow(container, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT,true);
-        abortPopup.setFocusable(false);
+        abortPopup=new PopupWindow(container,
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                false
+        );
 
         final TextView yes=(TextView) container.findViewById(R.id.abort_yes_button);
         final TextView no=(TextView) container.findViewById(R.id.abort_no_button);
@@ -473,22 +426,25 @@ public class GuessActivity extends AppCompatActivity {
                abortPopup.dismiss();
            }
        });
-
-
     }
 
     private void initializeSearchingPopupWindow() {
         if(searchingPopup!=null && searchingPopup.isShowing()) searchingPopup.dismiss();
         container=(ViewGroup)inflater.inflate(R.layout.searching_popup, null);
-        searchingPopup=new PopupWindow(container, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, true);
-        searchingPopup.setFocusable(false);
+        searchingPopup=new PopupWindow(container,
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                false
+        );
+        fullScreenImmersive(searchingPopup.getContentView());
+
     }
 
 
 
 
     public void onSettings(View view) {
-        settingsPopup.showAtLocation(wholeView, Gravity.NO_GRAVITY, 0, statusBarHeight);
+        settingsPopup.showAtLocation(wholeView, Gravity.FILL_VERTICAL, 0, statusBarHeight);
     }
 
 
@@ -498,30 +454,22 @@ public class GuessActivity extends AppCompatActivity {
     public void onStartGuess(View view) {
 
         initializeSearchingPopupWindow();
-        searchingPopup.showAtLocation(wholeView, Gravity.NO_GRAVITY, 0, statusBarHeight);
+        searchingPopup.showAtLocation(wholeView, Gravity.FILL_VERTICAL, 0, statusBarHeight);
 
                         setTimeAndTriesForWord(AppStaticData.WORDS_LENGTH);
-                        loadAppropriateWord();
+                        loadWordFromAndroidDB(wordLength);
 
     }
 
-    private void loadAppropriateWord() {
-        if(AppStaticData.WORDS_TYPE==AppStaticData.FROM_ANDROID)  loadWordFromAndroidDB(wordLength);
-        else loadWordFromUser(wordLength);
-    }
 
     private void wordFound(){
 
-        if(aWord==null && uWord==null ){
+        if(aWord==null){
             blockPopupCancel=true;
             Toast.makeText(getApplicationContext(), R.string.no_more_words_toast,Toast.LENGTH_LONG).show();
             if(searchingPopup!=null && searchingPopup.isShowing()) searchingPopup.dismiss();
-            settingsPopup.showAtLocation(wholeView, Gravity.NO_GRAVITY, 0, statusBarHeight);
+            settingsPopup.showAtLocation(wholeView, Gravity.FILL_VERTICAL, 0, statusBarHeight);
             return;
-        }
-
-        if( AppStaticData.PLAY_MUSIC && MainMenu.player!=null ) {
-            MainMenu.player.pause();
         }
 
         MediaManager.playTournamentMusic();
@@ -562,8 +510,7 @@ public class GuessActivity extends AppCompatActivity {
 
             int letterId=View.generateViewId();
             text.setId(letterId);
-            if(wordType==AppStaticData.FROM_ANDROID) letterFields[i]=new LetterField(letterId,aWord.getWord().charAt(i));
-            else letterFields[i]=new LetterField(letterId,uWord.getWord().charAt(i));
+            letterFields[i]=new LetterField(letterId,aWord.getWord().charAt(i));
 
             text.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -638,7 +585,6 @@ public class GuessActivity extends AppCompatActivity {
 
 
     private void loadWordFromAndroidDB(int wordLength) {
-        uWord=null;
         DatabaseManager db = new DatabaseManager(getApplicationContext());
         db.open();
         AndroidWord newWord;
@@ -650,35 +596,9 @@ public class GuessActivity extends AppCompatActivity {
             db.close();
             newWord=null;
         }
-       aWord=newWord;
-
+        aWord=newWord;
         wordFound();
     }
-
-
-
-    private void loadWordFromUser(int wordLength) {
-        aWord=null;
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserWords");
-        query.whereEqualTo("length", wordLength);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> list, ParseException e) {
-                if (e == null) {
-                    for (int i = 0; i < list.size(); i++) {
-
-                        if (!UserWord.isGuessed(list.get(i)) ) {
-                            uWord = new UserWord(list.get(i) );
-                            break;
-                        }
-                        else if (i >= list.size() - 1) uWord = null;
-                    }
-                } else uWord=null;
-                wordFound();
-            }
-        });
-
-    }
-
 
 
 
@@ -807,38 +727,41 @@ public class GuessActivity extends AppCompatActivity {
 
         MediaManager.stopTournamentMusic();
         MediaManager.playEndgame();
-        if(AppStaticData.WORDS_TYPE==AppStaticData.FROM_ANDROID) {
-            DatabaseManager db = new DatabaseManager(getApplicationContext());
-            db.open();
-            db.setWordGuessed(aWord);
-            db.close();
-        }
-       else uWord.setWordGuessed();
+        DatabaseManager db = new DatabaseManager(getApplicationContext());
+        db.open();
+        db.setWordGuessed(aWord);
+        db.close();
 
         if(timer!=null) timer.cancel();
         initializeEndGamePopupWindow(letterFields.length, 0);
-        endGamePopup.showAtLocation(wholeView, Gravity.NO_GRAVITY, 0, statusBarHeight);
-        cashManager.changeBalance(CashData.countChange(letterFields.length, 0, triesLeft, AppStaticData.WORDS_TYPE));
+        endGamePopup.showAtLocation(wholeView, Gravity.FILL_VERTICAL, 0, statusBarHeight);
+        cashManager.changeBalance(CashData.countChange(letterFields.length, 0, triesLeft));
         cashActionBar.setText("$" + cashManager.getBalance());
-        uWord=null;
         aWord=null;
     }
 
     private void loss(int correct,int incorrect){
         MediaManager.stopTournamentMusic();
         MediaManager.playEndgame();
-            if(timer != null) timer.cancel();
-            if( abortPopup!=null && abortPopup.isShowing() ) abortPopup.dismiss();
-            initializeEndGamePopupWindow(correct, incorrect);
-            endGamePopup.showAtLocation(wholeView, Gravity.NO_GRAVITY, 0, statusBarHeight);
-        cashManager.changeBalance(CashData.countChange(correct, incorrect, triesLeft, AppStaticData.WORDS_TYPE));
-            cashActionBar.setText("$" + cashManager.getBalance());
-            if(AppStaticData.WORDS_TYPE==AppStaticData.FROM_USERS){
-                uWord.sendCashFromLoss();
-                uWord.incrementCasualtiesNum();
-            }
-            uWord=null;
-            aWord=null;
+        if(timer != null) timer.cancel();
+        if( abortPopup!=null && abortPopup.isShowing() ) abortPopup.dismiss();
+        initializeEndGamePopupWindow(correct, incorrect);
+        endGamePopup.showAtLocation(wholeView, Gravity.FILL_VERTICAL, 0, statusBarHeight);
+        cashManager.changeBalance(CashData.countChange(correct, incorrect, triesLeft));
+        cashActionBar.setText("$" + cashManager.getBalance());
+        aWord=null;
+    }
+
+    public void fullScreenImmersive(View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            view.setSystemUiVisibility(uiOptions);
+        }
     }
 
 }

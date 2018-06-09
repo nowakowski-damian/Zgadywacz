@@ -38,46 +38,31 @@ public class CashData {
     }
 
 
-    public static int countChange(int correct,int incorrect,int triesLeft,int WORDS_MODE) {
+    public static int countChange(int correct,int incorrect,int triesLeft) {
 
         int length = incorrect + correct;
         boolean isWin = (incorrect == 0);
 
-        int fromCorrects = countCashFromCorrectLetters(correct, WORDS_MODE);
-        int fromIncorrects = countCashFromIncorrectLetters(incorrect, length, WORDS_MODE);
+        int fromCorrects = countCashFromCorrectLetters(correct);
+        int fromIncorrects = countCashFromIncorrectLetters(incorrect, length);
         int sum = fromCorrects + fromIncorrects;
 
-        if (isWin) sum += countCashFromWinBonus(length, WORDS_MODE) + countCashFromTriesBonus(length, triesLeft);
+        if (isWin) sum += countCashFromWinBonus(length) + countCashFromTriesBonus(length, triesLeft);
 
         return sum;
     }
 
 
-    public static int countCashFromCorrectLetters(int num,int WORDS_MODE){
-
-        switch(WORDS_MODE){
-            case AppStaticData.FROM_ANDROID: return num;
-            case AppStaticData.FROM_USERS: return num*10;
-            default: return 0;
-        }
+    public static int countCashFromCorrectLetters(int num){
+        return num;
     }
 
-    public static int countCashFromIncorrectLetters(int num,int length,int WORDS_MODE){
-
-        switch(WORDS_MODE){
-            case AppStaticData.FROM_ANDROID: return 0;
-            case AppStaticData.FROM_USERS: return -(num*length);
-            default: return 0;
-        }
+    public static int countCashFromIncorrectLetters(int num,int length){
+        return -(num*length);
     }
 
-    public static int countCashFromWinBonus(int length,int WORDS_MODE){
-
-        switch(WORDS_MODE){
-            case AppStaticData.FROM_ANDROID: return 5*length;
-            case AppStaticData.FROM_USERS: return 5*length*length;
-            default: return 0;
-        }
+    public static int countCashFromWinBonus(int length){
+        return 5*length;
     }
 
     public static int countCashFromTriesBonus(int length,int triesLeft){

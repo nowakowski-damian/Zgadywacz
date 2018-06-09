@@ -68,11 +68,6 @@ public class PlayActivity extends AppCompatActivity {
         startActivity( new Intent(getApplicationContext(),GuessActivity.class) );
     }
 
-    public void onCreateWord(View view) {
-        if (new LevelData().getMaxOwnWordsForCurrentLevel() <1 ) Toast.makeText(getApplicationContext(), R.string.create_own_word_not_4_lvl, Toast.LENGTH_SHORT).show();
-        else startActivity( new Intent(getApplicationContext(),CreateActivity.class) );
-    }
-
     public void onUpgrade(View view) {
         startActivity(new Intent(getApplicationContext(),UpgradeActivity.class));
     }
