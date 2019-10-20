@@ -5,14 +5,8 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
 import com.thirteendollars.guesser.other.MediaManager;
-import com.thirteendollars.guesser.wordslibrary.DateBaseCopyingManager;
-
-import io.fabric.sdk.android.Fabric;
-import java.io.IOException;
 
 /**
  * Created by Damian on 2015-12-11.
@@ -28,7 +22,6 @@ public class InitializeOnceOnStart extends Application {
         AppStaticData.spEditor=AppStaticData.sp.edit();
         AppStaticData.loadMusicSettings();
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
 
         //INITILIZE MUSIC
         if( !MediaManager.isInitialized() ) MediaManager.initialize(getApplicationContext());
@@ -45,29 +38,5 @@ public class InitializeOnceOnStart extends Application {
 
         //LOAD GAME SETTINGS
         AppStaticData.loadSettingsFromSP();
-
-
-        //COPY ANDROID_WORDS SQLITE DATABASE IF OPENED FIRST
-        boolean firstAppOpening=AppStaticData.sp.getBoolean("FIRST_APP_OPENING",true);
-        if(firstAppOpening){
-
-            DateBaseCopyingManager copyingManager =new DateBaseCopyingManager(getApplicationContext());
-            if( !copyingManager.isDBexist() )
-                try { copyingManager.copyDataBase(); }
-                    catch(IOException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-            AppStaticData.spEditor.putBoolean("FIRST_APP_OPENING",false);
-        }
-
     }
-
-
-
-
-
-
-
-
 }

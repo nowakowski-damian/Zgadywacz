@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,6 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.thirteendollars.guesser.R;
 import com.thirteendollars.guesser.data.CashData;
 import com.thirteendollars.guesser.data.LevelData;
@@ -29,6 +31,7 @@ import com.thirteendollars.guesser.other.MediaManager;
 import com.thirteendollars.guesser.other.MyKeyboard;
 import com.thirteendollars.guesser.wordslibrary.AndroidWord;
 import com.thirteendollars.guesser.wordslibrary.DatabaseManager;
+
 import java.util.Random;
 
 
@@ -585,18 +588,11 @@ public class GuessActivity extends AppCompatActivity {
 
 
     private void loadWordFromAndroidDB(int wordLength) {
-        DatabaseManager db = new DatabaseManager(getApplicationContext());
-        db.open();
-        AndroidWord newWord;
         try {
-             newWord= db.getAndroidWord(wordLength);
-             db.close();
-
+            aWord = DatabaseManager.getInstance(this).getAndroidWord(wordLength);
         } catch (Exception e) {
-            db.close();
-            newWord=null;
+            e.printStackTrace();
         }
-        aWord=newWord;
         wordFound();
     }
 
@@ -727,10 +723,7 @@ public class GuessActivity extends AppCompatActivity {
 
         MediaManager.stopTournamentMusic();
         MediaManager.playEndgame();
-        DatabaseManager db = new DatabaseManager(getApplicationContext());
-        db.open();
-        db.setWordGuessed(aWord);
-        db.close();
+        DatabaseManager.getInstance(this).setWordGuessed(aWord);
 
         if(timer!=null) timer.cancel();
         initializeEndGamePopupWindow(letterFields.length, 0);

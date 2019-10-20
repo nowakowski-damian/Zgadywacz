@@ -187,6 +187,8 @@
     <string name="mainmenu_actionbar_logout_text">Wyloguj</string>
     <string name="guess_loading_text">Szukam słowa...</string>
     <string name="actionBarException">Nie można ukryć paska powiadomień.Aplikajca może działać niepoprawnie.</string>
+    <string name="db_initialization_error">Błąd inicjalizacji bazy słów. Aplikacja nie będzie działać poprawnie.</string>
+    <string name="db_initialization_started">Inicjalizacja bazy słów...</string>
 
 
 </resources>

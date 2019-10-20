@@ -5,11 +5,16 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.thirteendollars.guesser.R;
+import com.thirteendollars.guesser.wordslibrary.DatabaseManager;
 
 
 public class MainMenu extends AppCompatActivity {
@@ -22,7 +27,6 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
         try{
             getSupportActionBar().hide();
         }
@@ -30,6 +34,37 @@ public class MainMenu extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), R.string.actionBarException,Toast.LENGTH_SHORT).show();
         }
         musicIcon=(ImageView)findViewById(R.id.actionbar_music_icon);
+        initializeDatabase();
+    }
+
+    private void initializeDatabase() {
+        final LinearLayout buttons = findViewById(R.id.linearLayout);
+        final ProgressBar progressBar = findViewById(R.id.progress_bar);
+        DatabaseManager.getInstance(this).initialize(new DatabaseManager.DatabaseCallback() {
+            @Override
+            public void onDatabaseInitializationStarted() {
+                Toast.makeText(getApplicationContext(), R.string.db_initialization_started, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDatabaseAlreadyExists() {
+                buttons.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onDatabasePopulatedSuccess() {
+                buttons.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onDatabasePopulatedError() {
+                Toast.makeText(getApplicationContext(), R.string.db_initialization_error, Toast.LENGTH_LONG).show();
+                buttons.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

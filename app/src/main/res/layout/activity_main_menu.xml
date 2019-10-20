@@ -1,9 +1,8 @@
-
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <include layout="@layout/mainmenu_actionbar" />
 
@@ -32,6 +31,8 @@
 
 
     <LinearLayout
+        android:visibility="invisible"
+        tools:visibility="visible"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_centerInParent="true"
@@ -78,6 +79,13 @@
         android:onClick="onCredits"/>
 
 </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
 </RelativeLayout>
 
 </LinearLayout>

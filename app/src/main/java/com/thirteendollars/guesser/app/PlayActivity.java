@@ -3,14 +3,14 @@ package com.thirteendollars.guesser.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.thirteendollars.guesser.R;
 import com.thirteendollars.guesser.data.CashData;
-import com.thirteendollars.guesser.data.LevelData;
 import com.thirteendollars.guesser.data.TimeData;
 import com.thirteendollars.guesser.data.TriesData;
 
